@@ -10,6 +10,7 @@ public class TriviaGameTest
     public static void main(String[] args)
     {
         TriviaGame game1 = new TriviaGame();
+        TriviaGame game2 = new TriviaGame();
         
         game1.playGame();
     }
