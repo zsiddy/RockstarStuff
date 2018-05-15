@@ -5,12 +5,12 @@
  * @author Zoe Siddall & Cameron Smith 
  * @version V1
  */
-public class TriviaGameTest_GH
+public class TriviaGameTest
 {
     public static void main(String[] args)
     {
-        TriviaGame_GH game1 = new TriviaGame_GH();
+        TriviaGame_V1 game1 = new TriviaGame_V1();
         
-        game1.playGame();
+        game1.startGame();
     }
 }

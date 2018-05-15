@@ -8,31 +8,34 @@
  * @version V1
  */
 import java.util.Scanner;
-public class TriviaGame_GH
+import java.util.Random;
+
+public class TriviaGame_V1
 {
-    private String player1;
-    private String player2;
-    private int count = 0;
     private String answer;
+    Player1 player1 = new Player1();
+    Player2 player2 = new Player2();
+    protected int currentRow;
+    
     Scanner keyboard = new Scanner(System.in);
     
-    //String[][] trivia = new String[6][20];
-    private String[][] trivia = {
-        {"Is Rio lame?", "A: Yes", "B: Probably Yes", "C: Obviously Yes", "D: Definitely Yes", "D"},
-        {"Is Cam lame?", "A: No", "B: Probably No", "C: Obviously No", "D: Definitely No", "C"}
+    //2D String Array with 10 rows and 6 columns
+    protected String[][] trivia = {
+        {"Q0 Is Rio lame?", "A: Yes", "B: Probably Yes", "C: Obviously Yes", "D: Definitely Yes", "D"},
+        {"Q1 Is Cam lame?", "A: No", "B: Probably No", "C: Obviously No", "D: Definitely No", "C"},
+        {"Q2","A", "B", "C", "D", "A"},
+        {"Q3","A", "B", "C", "D", "A"},
+        {"Q4","A", "B", "C", "D", "A"},
+        {"Q5","A", "B", "C", "D", "A"},
+        {"Q6","A", "B", "C", "D", "A"},
+        {"Q7","A", "B", "C", "D", "A"},
+        {"Q8","A", "B", "C", "D", "A"},
+        {"Q9","A", "B", "C", "D", "A"},
+        {"Q10","A", "B", "C", "D", "A"},
     };
     
-    public TriviaGame()
-    {
-        
-    }
-
     public void startGame()
     {
-    		System.out.println("WELCOME TO TRIVIA SLOTH!");
-    		getPlayerNames();
-    		System.out.println();
-    		
     		Random randStart = new Random();
     		
     		//If whoStarts = true, player 1 starts.
@@ -41,47 +44,57 @@ public class TriviaGame_GH
     	
     		if(whoStarts)
     		{
-    			System.out.println("Question for: " + player1 + "...");
-        		printQP1();
-            validMove();
-            checkCorrectAns();
+    			for(currentRow = 0; currentRow < trivia.length - 1; currentRow++)
+    			{
+    				if(currentRow % 2 == 0)
+    				{
+    					System.out.println("Question for: " + player1.getName() + "...");
+    	        			printQ();
+    	        			validMove();
+    	        			checkAns();
+    				}
+    				else
+    				{
+    					System.out.println("Question for: " + player2.getName() + "...");
+	        			printQ();
+	        			validMove();
+	        			checkAns();
+    				}
+    			}
+    			
+    			getWinner();
     		}
     		else
     		{
-    			System.out.println("Question for: " + player2 + "...");
-        		printQP2();
-	        validMove();
-	        checkCorrectAns();
+    			for(currentRow = 1; currentRow < trivia.length; currentRow++)
+    			{
+    				if(currentRow % 2 == 0)
+    				{
+    					System.out.println("Question for: " + player1.getName() + "...");
+    	        			printQ();
+    	        			validMove();
+    	        			checkAns();
+    				}
+    				else
+    				{
+    					System.out.println("Question for: " + player2.getName() + "...");
+	        			printQ();
+	        			validMove();
+	        			checkAns();
+    				}
+    			}
+    			
+    			getWinner();
     		}
     }
     
-    public void getPlayerNames()
+    public void printQ()
     {
-        System.out.print("Enter Name for Player 1: ");
-        player1 = keyboard.nextLine();
-        
-        System.out.print("Enter Name for Player 2: ");
-        player2 = keyboard.nextLine();
-        
-        System.out.println();
-    }
-    
-    public void printQP1()
-    {
-        System.out.println(trivia[0][0]);
-        System.out.println(trivia[0][1]);
-        System.out.println(trivia[0][2]);
-        System.out.println(trivia[0][3]);
-        System.out.println(trivia[0][4]);
-    }
-
-    public void printQP2()
-    {
-        System.out.println(trivia[1][0]);
-        System.out.println(trivia[1][1]);
-        System.out.println(trivia[1][2]);
-        System.out.println(trivia[1][3]);
-        System.out.println(trivia[1][4]);
+        System.out.println(trivia[currentRow][0]);
+        System.out.println(trivia[currentRow][1]);
+        System.out.println(trivia[currentRow][2]);
+        System.out.println(trivia[currentRow][3]);
+        System.out.println(trivia[currentRow][4]);
     }
     
     public void validMove()
@@ -107,17 +120,51 @@ public class TriviaGame_GH
         }while(!validAns);
     }
     
-    public void checkCorrectAns()
+    public void checkAns()
     {
-        if(answer == trivia[0][5])
+        if(answer.equals(trivia[currentRow][5]))
             {
                 System.out.println("Correct!");
                 System.out.println();
+                
+                if(currentRow % 2 == 0)
+				{
+                		player1.score++;
+				}
+				else
+				{
+					player2.score++;
+				}
             }
             else
             {
-                System.out.println("Wrong. The correct answer is: " + trivia[0][5] + ".");
+                System.out.println("Wrong. The correct answer is: " + trivia[currentRow][5] + ".");
                 System.out.println();
             }
+    }
+    
+    public void getWinner()
+    {
+    		String player1LC = player1.getName();
+    		String player1UC = player1LC.toUpperCase();
+    		
+    		String player2LC = player2.getName();
+    		String player2UC = player2LC.toUpperCase();
+    		
+    		if(player1.getScore() > player2.getScore())
+    		{
+    			System.out.println("WINNER: " + player1UC);
+    			System.out.println("LOSER: " + player2UC);
+    		}
+    		else if(player1.getScore() < player2.getScore())
+    		{
+    			System.out.println("WINNER: " + player2UC);
+    			System.out.println("LOSER: " + player1UC);
+    		}
+    		else
+    		{
+    			System.out.println(player1UC + " & " + 
+    					player2UC + " TIE.");
+    		}
     }
 }
