@@ -1,3 +1,10 @@
+/**
+ * Write a description of class TriviaGameTest here.
+ * 
+ * @author Zoe Siddall & Cameron Smith 
+ * @version V1
+ */
+
 import java.util.Scanner;
 
 public class Player2 extends Player
