@@ -10,7 +10,6 @@
  */
 import java.util.Scanner;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Random;
 import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
@@ -43,13 +42,6 @@ public class TriviaGame_V1
 			new TriviaQuestion(),
 			new TriviaQuestion()
 			};
-	
-	private String[][] answerArray = {
-			{"A", ""},
-			{"B", ""},
-			{"C", ""},
-			{"D", ""}
-	};
 		
 	public void preStart()
 	{
@@ -163,11 +155,11 @@ public class TriviaGame_V1
         }
         */
     	
-    		System.out.println(trivia[currentRow].question);
-        System.out.println("A: ");
-        System.out.println("B: ");
-        System.out.println("C: ");
-        System.out.println("D: ");
+    		System.out.println(trivia[currentRow].getQuestion());
+        System.out.println("A: " + trivia[currentRow].getAnsA());
+        System.out.println("B: " + trivia[currentRow].getAnsB());
+        System.out.println("C: " + trivia[currentRow].getAnsC());
+        System.out.println("D: " + trivia[currentRow].getAnsD());
     }
     
     public void validMove()
@@ -195,7 +187,7 @@ public class TriviaGame_V1
     
     public void checkAns()
     {
-        if(answer.equals(trivia[currentRow].answer))
+        if(answer.equals(trivia[currentRow].answerToLetter()))
             {
                 System.out.println("Correct!");
                 System.out.println();
@@ -211,7 +203,7 @@ public class TriviaGame_V1
             }
             else
             {
-                System.out.println("Wrong. The correct answer is: " + trivia[currentRow].answer + ".");
+                System.out.println("Wrong. The correct answer is: " + trivia[currentRow].getAnswer() + ".");
                 System.out.println();
             }
     }
@@ -240,19 +232,4 @@ public class TriviaGame_V1
     					player2UC + " TIE.");
     		}
     } 
-    
-    /**
-    private void shuffleAnswers()
-    {
-    	
-    		long seed = System.nanoTime();
-    		Collections.shuffle(allAnswers, new Random(seed));
-    }
-    */
-    
-    public void answerArray()
-    {
-    	
-    	
-    }
 }
