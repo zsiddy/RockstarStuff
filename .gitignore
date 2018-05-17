@@ -8,3 +8,6 @@
 /JsonParser.class
 /triviaQuestion.class
 /TriviaQuestion.class
+/StringEscapeUtils.class
+/StringEscapeUtils$Builder.class
+/StringEscapeUtils$XsiUnescaper.class

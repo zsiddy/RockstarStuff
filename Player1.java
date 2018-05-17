@@ -24,6 +24,34 @@ public class Player1 extends Player
 		System.out.println("WELCOME TO TRIVIA SLOTH!");
 		System.out.println();
 		
+		/**
+	      `""==,,__  
+	    	        `"==..__"=..__ _    _..-==""_
+	    	             .-,`"=/ /\ \""/_)==""``
+	    	            ( (    | | | \/ |
+	    	             \ '.  |  \;  \ /
+	    	              |  \ |   |   ||
+	    	         ,-._.'  |_|   |   ||
+	    	        .\_/\     -'   ;   Y
+	    	       |  `  |        /    |-.
+	    	       '. __/_    _.-'     /'
+	    	   jgs        `'-.._____.-'
+	    	   */
+		
+		
+		System.out.println("	      `\"\"==,,__  ");
+	    	System.out.println("	    	        `\"==..__\"=..__ _    _..-==\"\"_");
+	    	System.out.println("	    	             .-,`\"=/ /\\ \\\"\"/_)==\"\"``");
+	    	System.out.println("	    	            ( (    | | | \\/ |");
+	    	System.out.println("	    	             \\ '.  |  \\;  \\ /");
+	    	System.out.println("	    	              |  \\ |   |   ||");
+	    	System.out.println("	    	         ,-._.'  |_|   |   ||");
+	    	System.out.println("	    	        .\\_/\\     -'   ;   Y");
+	    	System.out.println("	    	       |  `  |        /    |-.");
+	    	System.out.println("	    	       '. __/_    _.-'     /'");
+	    	System.out.println("	    	              `'-.._____.-'");
+	    	System.out.println();
+		
 		System.out.print("Enter Name for Player 1: ");
 	    nameSaver = keyboard.nextLine();
 	    System.out.println();

@@ -29,7 +29,8 @@ public class TriviaGame_V1
     Gson gson = new Gson();
 	
 	// TODO Auto-generated method stub
-	private TriviaQuestion[] trivia = {
+	protected TriviaQuestion[] trivia = 
+	{
 			new TriviaQuestion(),
 			new TriviaQuestion(),
 			new TriviaQuestion(),
@@ -42,11 +43,15 @@ public class TriviaGame_V1
 			new TriviaQuestion(),
 			new TriviaQuestion()
 			};
-		
+	
+	public TriviaGame_V1()
+	{
+	}
+
+	
 	public void preStart()
 	{
-		getTrivia();
-		//for(int i = 0; i < NUM_ROWS; i++)
+		//getTrivia();
 		int i = 0;
 		for ( Results qnumber : getTrivia())
 		{
@@ -54,11 +59,15 @@ public class TriviaGame_V1
 			trivia[i].setQuestion(qnumber.getQuestion());
 			trivia[i].setAnswer(qnumber.getCorrect_answer());
 			trivia[i].setIncorrectAnswers(qnumber.getIncorrect_answers());
+
+			trivia[i].setAllAnswers();
+			trivia[i].shuffleAnswers();
+			trivia[i].allAnswersToString();
 			i++;
 		}
 	}
 
-    public TriviaGame_V1()
+    public void startGame()
     {
     		preStart();
     	
@@ -146,15 +155,6 @@ public class TriviaGame_V1
     
     public void printQ()
     {
-        /**
-    		String answerCorrected = trivia[currentRow].question;
-        for(int i = 0; i < trivia[currentRow].question.length(); i++)
-        {
-        			//&quot; = "
-        			//&#039; = '
-        }
-        */
-    	
     		System.out.println(trivia[currentRow].getQuestion());
         System.out.println("A: " + trivia[currentRow].getAnsA());
         System.out.println("B: " + trivia[currentRow].getAnsB());

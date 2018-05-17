@@ -1,15 +1,17 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import groovy.json.StringEscapeUtils;
 import java.util.List;
-
+import java.util.Base64;
+import java.io.UnsupportedEncodingException;
 
 public class TriviaQuestion 
 {
 	private String question;
 	private String correctAnswer;
-	private String[] incorrectAnswers;
-	private String[] allAnswers;
+	private String[] incorrectAnswers = new String[3];
+	private String[] allAnswers = new String [4];
 	private String answerA;
 	private String answerB;
 	private String answerC;
@@ -43,19 +45,35 @@ public class TriviaQuestion
 		this.correctAnswer = answer;
 		this.incorrectAnswers = incorrectAnswers;
 		
-		allAnswers = new String[4];
-		setAllAnswers();
-		allAnswersToString();
+		allAnswers[0] = "No Answer";
+		allAnswers[1] = "No Answer";
+		allAnswers[2] = "No Answer";
+		allAnswers[3] = "No Answer";
+		//setAllAnswers();
+		//allAnswersToString();
 	}
 	
 	public TriviaQuestion()
 	{
+		//trivia[i].setQuestion(qnumber.getQuestion());
+		//trivia[i].setAnswer(qnumber.getCorrect_answer());
+		//trivia[i].setIncorrectAnswers(qnumber.getIncorrect_answers());
 		
+		//Results result = new Results();
+		//result = TriviaGame_V1.getTrivia();
+		//setQuestion(getQuestion());
+		//setAnswer(result.getCorrect_answer());
+		//setIncorrectAnswers(result.getIncorrect_answers());
+		
+		//allAnswers = new String[4];
+		//setAllAnswers();
+		//allAnswersToString();
 	}
 	
 	public void setQuestion(String question)
 	{
-		this.question = question;
+		this.question = StringEscapeUtils.unescapeJava(question);
+		//StringEscapeUtils.unescapeHtml4.question;
 	}
 	
 	public String getQuestion()
@@ -65,7 +83,8 @@ public class TriviaQuestion
 	
 	public void setAnswer(String answer)
 	{
-		this.correctAnswer = answer;
+		//this.correctAnswer = answer;
+		this.correctAnswer = StringEscapeUtils.unescapeJava(answer);
 	}
 	
 	public String getAnswer()
@@ -75,7 +94,12 @@ public class TriviaQuestion
 	
 	public void setIncorrectAnswers(String[] strings)
 	{
-		this.incorrectAnswers = strings;
+		//this.incorrectAnswers = strings;
+		for(int i = 0; i < 3; i++)
+		{
+			incorrectAnswers[i] = StringEscapeUtils.unescapeJava(strings[i]);
+			//incorrectAnswers[i] = StringEscapeUtils.unescapeHtml4.strings[i];
+		}
 	}
 	
 	public String[] getIncorrectAnswers()
@@ -85,13 +109,11 @@ public class TriviaQuestion
 	
     public void setAllAnswers() 
     {
-    		//allAnswers = incorrectAnswers;
-    		for(int i = 0; i < incorrectAnswers.length; i++)
+    		for(int i = 0; i < 3; i++)
     		{
     			allAnswers[i] = incorrectAnswers[i];
     		}
-    		allAnswers[4] = correctAnswer;
-        shuffleAnswers();
+    		allAnswers[3] = correctAnswer;
     }
     
     public void shuffleAnswers()
@@ -154,5 +176,19 @@ public class TriviaQuestion
     {
     		return answerD;
     }
+    
+    /*
+    private String decode(String in) {
+        //Log.d(TAG, "in: " + in);
+        try {
+            byte[] bytes = Base64.decode(in, Base64.URL_SAFE);
+            return new String(bytes, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    */
+  
 
 }
