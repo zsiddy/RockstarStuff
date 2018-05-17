@@ -1,12 +1,16 @@
 /**
  * To Do:
- * Getting the questions via JSON
+ * Change stuff to work with answer + incorrectAnswers array
+ * Put the answers in a random order, but make sure we know where the right one is
+ * Check given answer against correct answer
+ * Have method that equates correct answer letter with correct answer String
  * 
  * @author Zoe Siddall & Cameron Smith 
  * @version V1
  */
 import java.util.Scanner;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Random;
 import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
@@ -24,38 +28,49 @@ public class TriviaGame_V1
     
     private static OkHttpClient client = new OkHttpClient();
     Gson gson = new Gson();
-    
-    String q0 = "Q0\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-    String q1 = "What color are apples?\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q2 = "What color are bananas?\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q3 = "What color is Cameron?\n" + "(a) true\n(b) false\n(c) yellow\\n(d)purple";
-	String q4 = "What color is Cameron's car?\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q5 = "Q5\n"+ "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q6 = "Q6\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q7 = "Q7\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q8 = "Q8\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q9 = "Q9\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
-	String q10 = "Q10\n" + "(a) red\n(b) blue\n(c) yellow\n(d)purple";
 	
 	// TODO Auto-generated method stub
 	private TriviaQuestion[] trivia = {
-			new TriviaQuestion(q0, "A", "easy", "fruit"),
-			new TriviaQuestion(q1, "A", "easy", "fruit"),
-			new TriviaQuestion(q2, "C", "easy", "fruit"),
-			new TriviaQuestion(q3, "B", "easy", "fruit"),
-			new TriviaQuestion(q4, "A", "easy", "fruit"),
-			new TriviaQuestion(q5, "A", "easy", "fruit"),
-			new TriviaQuestion(q6, "A", "easy", "fruit"),
-			new TriviaQuestion(q7, "A", "easy", "fruit"),
-			new TriviaQuestion(q8, "A", "easy", "fruit"),
-			new TriviaQuestion(q9, "A", "easy", "fruit"),
-			new TriviaQuestion(q10, "A", "easy", "fruit")
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion(),
+			new TriviaQuestion()
 			};
+	
+	private String[][] answerArray = {
+			{"A", ""},
+			{"B", ""},
+			{"C", ""},
+			{"D", ""}
+	};
+		
+	public void preStart()
+	{
+		getTrivia();
+		//for(int i = 0; i < NUM_ROWS; i++)
+		int i = 0;
+		for ( Results qnumber : getTrivia())
+		{
+			
+			trivia[i].setQuestion(qnumber.getQuestion());
+			trivia[i].setAnswer(qnumber.getCorrect_answer());
+			trivia[i].setIncorrectAnswers(qnumber.getIncorrect_answers());
+			i++;
+		}
+	}
 
-    public void startGame()
+    public TriviaGame_V1()
     {
+    		preStart();
+    	
     		Random randStart = new Random();
-    		
     		//If whoStarts = true, player 1 starts.
     		//Else, player 2 starts.
     		boolean whoStarts = randStart.nextBoolean();
@@ -119,17 +134,40 @@ public class TriviaGame_V1
 	    }
 	}
 	
-	public static String[] getTrivia(String questions)
+	public static Results[] getTrivia()
 	{
-		//trivia db api
-		https://opentdb.com/api.php?amount=10&difficulty=hard&type=multiple
-		return null;
+		String json = null;
+		try
+		{
+			json = getJson("https://opentdb.com/api.php?amount=11&difficulty=hard&type=multiple");
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		
+		Gson gson = new Gson();
+
+		JsonParser jsonParser = gson.fromJson(json,JsonParser.class);
+		
+		return jsonParser.getResults();
 	}
     
     public void printQ()
     {
-        System.out.println(trivia[currentRow].question);
+        /**
+    		String answerCorrected = trivia[currentRow].question;
+        for(int i = 0; i < trivia[currentRow].question.length(); i++)
+        {
+        			//&quot; = "
+        			//&#039; = '
+        }
+        */
+    	
+    		System.out.println(trivia[currentRow].question);
+        System.out.println("A: ");
+        System.out.println("B: ");
+        System.out.println("C: ");
+        System.out.println("D: ");
     }
     
     public void validMove()
@@ -201,5 +239,20 @@ public class TriviaGame_V1
     			System.out.println(player1UC + " & " + 
     					player2UC + " TIE.");
     		}
+    } 
+    
+    /**
+    private void shuffleAnswers()
+    {
+    	
+    		long seed = System.nanoTime();
+    		Collections.shuffle(allAnswers, new Random(seed));
+    }
+    */
+    
+    public void answerArray()
+    {
+    	
+    	
     }
 }

@@ -1,6 +1,6 @@
 public class JsonParser
 {
-    private Results[] results;
+    protected Results[] results;
 
     private String response_code;
 

@@ -10,7 +10,5 @@ public class TriviaGameTest
     public static void main(String[] args)
     {
         TriviaGame_V1 game1 = new TriviaGame_V1();
-        
-        game1.startGame();
     }
 }
